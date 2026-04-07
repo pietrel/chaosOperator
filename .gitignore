@@ -1,0 +1,6 @@
+.idea/
+bin/
+vendor/
+*.exe
+*.test
+*.out
