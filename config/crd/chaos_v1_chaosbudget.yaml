@@ -1,0 +1,68 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: chaosbudgets.chaos.example.com
+spec:
+  group: chaos.example.com
+  names:
+    kind: ChaosBudget
+    listKind: ChaosBudgetList
+    plural: chaosbudgets
+    singular: chaosbudget
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            type: object
+            properties:
+              target:
+                type: object
+                properties:
+                  namespace:
+                    type: string
+                  labels:
+                    type: object
+                    additionalProperties:
+                      type: string
+              budget:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  max:
+                    type: number
+              window:
+                type: string
+              policies:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+          status:
+            type: object
+            properties:
+              consumed:
+                type: number
+              remaining:
+                type: number
+              lastUpdated:
+                type: string
+                format: date-time
+              allowed:
+                type: boolean
+    served: true
+    storage: true
+    subresources:
+      status: {}
